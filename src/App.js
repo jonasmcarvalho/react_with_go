@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { useEffect } from "react";
+import { useRef } from "react";
 import { useState } from "react";
 import './App.css'
 import Input from "./Input";
@@ -10,6 +11,10 @@ function HelloWorld(props) {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [dob, setDob] = useState('')
+
+  const firstNameRef = useRef()
+  const lastNameRef = useRef(null)
+  const dobRef = useRef(null)
 
   const toggleTrue = () => {
     if(isTrue) {
@@ -69,6 +74,10 @@ function HelloWorld(props) {
     setFirstName('')
     setLastName('')
     setDob('')
+
+    firstNameRef.current.value = ''
+    lastNameRef.current.value = ''
+    dobRef.current.value = ''
   }
 
   return (
@@ -90,7 +99,7 @@ function HelloWorld(props) {
       }
       <hr />
       <a href="#!" className="btn btn-outline-secondary" onClick={toggleTrue}>Toglle isTrue</a>
-
+      <hr />
       <form autoComplete="off" onSubmit={handleSubmit}>
         <div className="md-3">
           <label className="form-label" htmlFor="first-name">First Name</label>
@@ -98,6 +107,7 @@ function HelloWorld(props) {
             type="text"
             name="first-name"
             id="first-name"
+            ref={firstNameRef}
             autoComplete="first-name-new"
             className="form-control"
             onChange={(event) => setFirstName(event.target.value)}
@@ -107,6 +117,7 @@ function HelloWorld(props) {
         <Input
           title="Last Name"
           type="text"
+          ref={lastNameRef}
           name="last-name"
           autoComplete="last-name-new"
           className="form-control"
@@ -116,6 +127,7 @@ function HelloWorld(props) {
         <Input
           title="Date of Birth"
           type="date"
+          ref={dobRef}
           name="dob"
           autoComplete="dob-new"
           className="form-control"
